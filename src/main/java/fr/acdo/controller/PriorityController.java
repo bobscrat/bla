@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.acdo.domain.Priority;
 import fr.acdo.service.PriorityService;
 
-@CrossOrigin(origins = "http://localhost:3000") // à supprimer en prod
+@CrossOrigin(origins = "*") // à supprimer en prod
 @RestController
+@RequestMapping("/api")
 public class PriorityController {
 
 	private PriorityService service;
@@ -28,7 +30,7 @@ public class PriorityController {
 		this.service = service;
 	}
 
-	@GetMapping("/api/priorities")
+	@GetMapping("/priorities")
 	public List<Priority> listPriorities() {
 		List<Priority> list = null;
 		try {
@@ -39,7 +41,7 @@ public class PriorityController {
 		return list;
 	}
 
-	@GetMapping("/api/priorities/{id}")
+	@GetMapping("/priorities/{id}")
 	public Priority getPriority(@PathVariable Long id) {
 		Priority priority = null;
 		try {
@@ -50,7 +52,7 @@ public class PriorityController {
 		return priority;
 	}
 
-	@PostMapping("/api/priorities")
+	@PostMapping("/priorities")
 	public Priority savePriority(@RequestBody @Valid Priority priority) {
 		Priority newPriority = null;
 		try {
@@ -61,7 +63,7 @@ public class PriorityController {
 		return newPriority;
 	}
 
-	@PutMapping("/api/priorities")
+	@PutMapping("/priorities")
 	public Priority updatePriority(@RequestBody @Valid Priority priority) {
 		Priority newPriority = null;
 		try {
@@ -72,8 +74,8 @@ public class PriorityController {
 		return newPriority;
 	}
 
-	@DeleteMapping("/api/priorities/{id}")
-	public void deleteCategory(@PathVariable Long id) {
+	@DeleteMapping("/priorities/{id}")
+	public void deletePriority(@PathVariable Long id) {
 		try {
 			service.deletePriority(id);
 		} catch (Exception e) {

@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.acdo.domain.Event;
 import fr.acdo.service.EventService;
 
-@CrossOrigin(origins = "http://localhost:3000") // à supprimer en prod
+@CrossOrigin(origins = "*") // à supprimer en prod
 @RestController
+@RequestMapping("/api")
 public class EventController {
 
 	private EventService service;
@@ -26,7 +28,7 @@ public class EventController {
 		this.service = service;
 	}
 
-	@GetMapping("/api/events")
+	@GetMapping("/events")
 	public List<Event> listEvents() {
 		List<Event> list = null;
 		try {
@@ -37,12 +39,17 @@ public class EventController {
 		return list;
 	}
 
-	@GetMapping("/api/events/{id}")
+	@GetMapping("/events/{id}")
 	public Event getEvent(@PathVariable Long id) {
-		return service.getEventyById(id);
+		return service.getEventById(id);
 	}
 
-	@PostMapping("/api/events")
+	@GetMapping("/events?priority={id}")
+	public List<Event> getEventsByPriorityId(@PathVariable Long id) {
+		return service.getEventsByPriorityId(id);
+	}
+
+	@PostMapping("/events")
 	public Event createEvent(@RequestBody @Valid Event event) {
 		Event newEvent = null;
 		try {
@@ -53,7 +60,7 @@ public class EventController {
 		return newEvent;
 	}
 
-	@PutMapping("/api/events")
+	@PutMapping("/events")
 	public Event updateEvent(@RequestBody @Valid Event event) {
 		Event newEvent = null;
 		try {
@@ -64,7 +71,7 @@ public class EventController {
 		return newEvent;
 	}
 
-	@DeleteMapping("/api/events/{id}")
+	@DeleteMapping("/events/{id}")
 	public void deleteEvent(@PathVariable Long id) {
 		try {
 			service.deleteEvent(id);

@@ -52,31 +52,32 @@ public class Event {
 	@JoinColumn(name = "parent_id")
 	private Event parentEvent;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-	// private Long user_id;
+	// @ManyToOne
+	// @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name =
+	// "fk_event_user1"))
+	// private User user;
+	private Long user_id;
 
 	// @NotNull(message = "Le champ 'category' ne peut pas être vide")
 	// @ManyToOne
 	// @JoinColumn(name = "category_id")
 	// private Category category;
-	// // private Long category_id;
-	//
+	private Long category_id;
+
 	// @ManyToOne
 	// @JoinColumn(name = "project_id")
 	// private Project project;
-	// // private Long project_id;
-	//
+	private Long project_id;
+
 	// @ManyToOne
 	// @JoinColumn(name = "contact_id")
 	// private Contact contact;
-	// // private Long contact_id;
-	//
+	private Long contact_id;
+
 	// @ManyToOne
 	// @JoinColumn(name = "periodicity_id")
 	// private Periodicity periodicity;
-	// private Long periodicity_id;
+	private Long periodicity_id;
 
 	@ManyToOne
 	@JoinColumn(name = "priority_id")
