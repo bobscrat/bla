@@ -1,11 +1,15 @@
 package fr.acdo.domain;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,24 +25,25 @@ public class User {
 
 	private String firstName;
 
-	private String birthday;
+	private LocalDate birthday;
 
 	private String email;
 
-	// @Pattern(regexp="^[a-zA-Z]+([\.-]?[a-zA-Z]+)*@[a-zA-Z]+([\.-]?[a-zA-Z]+)*(\.[a-zA-Z]{2,3})+$")
 	private String password;
 
-	private String active;
+	// FIX ME => Penser à remplir la base en boolean
+	private boolean active;
 
 	private String image;
 
 	@ManyToOne
 	@JoinColumn(name = "Role_id")
-	// @JsonManagedReference
+	@JsonManagedReference
 	private Role roletest;
 
 	@ManyToOne
 	@JoinColumn(name = "Family_id")
+	@JsonManagedReference
 	private Family familytest;
 
 }

@@ -1,5 +1,6 @@
 package fr.acdo.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,10 @@ import fr.acdo.service.UserService;
 @RequestMapping("/api")
 public class UserController {
 
-	private UserService user;
+	private UserService service;
 
-	public UserController(UserService user) {
-		this.user = user;
+	public UserController(UserService service) {
+		this.service = service;
 	}
 
 	@GetMapping("/users")
@@ -27,7 +28,7 @@ public class UserController {
 		List<User> listOfUser = null;
 
 		try {
-			listOfUser = user.getAllUsers();
+			listOfUser = service.getAllUsers();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,7 +40,7 @@ public class UserController {
 		User myUser = null;
 
 		try {
-			myUser = user.getById(id);
+			myUser = service.getById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,13 +48,8 @@ public class UserController {
 	}
 
 	@PostMapping("/user/save")
-	public String addUser(@RequestParam String firstName, @RequestParam String birthday) {
-		return user.addUser(firstName, birthday);
+	public String addUser(@RequestParam String firstName, @RequestParam LocalDate birthday) {
+		return service.addUser(firstName, birthday);
 	}
 
-	@PostMapping("/create")
-	public String createUser(@RequestParam String familyName, @RequestParam String firstname,
-			@RequestParam String email, @RequestParam String password, Long id) {
-		return user.createAccount(familyName, firstname, email, password, id);
-	}
 }
